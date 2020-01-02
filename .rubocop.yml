@@ -15,10 +15,13 @@ Layout/LineLength:
 Lint/Debugger:
   Enabled: false
 
-Style/BlockComments:
-  Enabled: false
+Metrics/MethodLength:
+  Max: 20
 
 Style/AsciiComments:
+  Enabled: false
+
+Style/BlockComments:
   Enabled: false
 
 Style/BlockDelimiters:
@@ -79,7 +82,3 @@ Style/TrailingCommaInArrayLiteral:
 
 Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: comma
-
-Metrics/MethodLength:
-  Max: 20
-

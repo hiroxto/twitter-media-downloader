@@ -22,7 +22,7 @@ jobs:
         run: bundle install --jobs=4 --path=vendor/bundle
 
       - name: Run rubocop
-        run: bundle exec rubocop -a
+        run: bundle exec rubocop
         env:
           CI: true
 

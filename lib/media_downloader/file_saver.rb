@@ -11,6 +11,7 @@ module MediaDownloader
     attr_reader :uri
 
     # URIの保存先
+    #
     # @return [String]
     attr_reader :save_to
 

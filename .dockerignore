@@ -1,0 +1,9 @@
+# Logs
+*.log
+
+# Dependency directory
+vendor
+
+# IDE
+.idea
+.vscode

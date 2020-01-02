@@ -1,0 +1,9 @@
+config.yml
+
+*.gem
+/.bundle/
+/vendor/
+Gemfile.lock
+.ruby-version
+.rvmrc
+!.gitkeep

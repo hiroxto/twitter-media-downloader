@@ -48,7 +48,7 @@ module MediaDownloader
     # @param [String] base_dir ダウンロード先のベースディレクトリ
     def initialize(client, tweet_id, base_dir)
       @client = client
-      @tweet_id = tweet_id
+      @tweet_id = parse_tweet_id(tweet_id)
       @base_dir = base_dir
       @cli = HighLine.new
       @tweet = @client.status(@tweet_id, tweet_mode: 'extended')
@@ -74,6 +74,13 @@ module MediaDownloader
     end
 
     private
+
+    # @param [String] id
+    # @return [Array]
+    def parse_tweet_id(id)
+      parser = IDParser.new(id)
+      parser.parse
+    end
 
     # @param [Twitter::Tweet]
     def validate_tweet(tweet)

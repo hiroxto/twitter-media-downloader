@@ -48,7 +48,7 @@ module MediaDownloader
     # @param [String] base_dir ダウンロード先のベースディレクトリ
     def initialize(client, tweet_id, base_dir)
       @client = client
-      @tweet_id = parse_tweet_id(tweet_id)
+      @tweet_id, target_numbers = parse_tweet_id(tweet_id)
       @base_dir = base_dir
       @cli = HighLine.new
       @tweet = @client.status(@tweet_id, tweet_mode: 'extended')

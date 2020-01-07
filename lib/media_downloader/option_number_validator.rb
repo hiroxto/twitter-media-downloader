@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require File.expand_path('error/option_number_validator_error.rb', __dir__)
+
 module MediaDownloader
   class OptionNumberValidator
 
@@ -19,11 +21,11 @@ module MediaDownloader
     private
 
     def empty_array?
-      raise '番号が空です' if @numbers.empty?
+      raise MediaDownloader::Error::OptionNumberValidatorError, '番号が空です' if @numbers.empty?
     end
 
     def over_medias_size?
-      raise '番号の最大値がメディアの数より多いです' if @numbers.max >= @medias.size
+      raise MediaDownloader::Error::OptionNumberValidatorError, '番号の最大値がメディアの数より多いです' if @numbers.max >= @medias.size
     end
   end
 end

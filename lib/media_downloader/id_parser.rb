@@ -3,11 +3,22 @@
 module MediaDownloader
   class IDParser
 
+    # ID と番号の区切り
     ID_DELIMITER = ':'
+
+    # 番号の区切り
     TARGET_DELIMITER = ','
+
+    # ID のチェック用
+    # 最低限, 頭の1-9と2桁の0-9 のみチェックする
     VALID_ID_PATTERN = /^[1-9][0-9]{2,}/.freeze
+
+    # 番号の範囲
+    # Twitter の仕様である最大4枚の画像と全選択の0 を許容
     VALID_TARGETS = (0..4).map(&:to_s).freeze
 
+    # パースするID
+    #
     # @return [String]
     attr_reader :raw_data
 
@@ -72,12 +83,12 @@ module MediaDownloader
       VALID_TARGETS.include?(target)
     end
 
-    # 例外を投げるだけ
+    # IDが正しくない場合の例外を投げる
     def raise_invalid_id
       raise "Invalided id in #{@raw_data}"
     end
 
-    # 例外を投げるだけ
+    # 番号が正しくない場合の例外を投げる
     def raise_invalid_targets
       raise "Invalided targets #{@raw_data}"
     end

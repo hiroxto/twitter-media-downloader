@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path('runtime_error.rb', __dir__)
 
 module MediaDownloader

@@ -74,8 +74,10 @@ module MediaDownloader
 
     private
 
+    # IDと番号オプションをパースする
+    #
     # @param [String] id
-    # @return [Array]
+    # @return [Array] 0番目にStringのID, 1番目にArray<Integer>の配列
     def parse_tweet_id(id)
       parser = IDParser.new(id)
       parser.parse
@@ -92,6 +94,8 @@ module MediaDownloader
       "https://twitter.com/#{tweet.user.screen_name}/status/#{tweet.id}"
     end
 
+    # ダウンロード対象のメディアを取得する
+    #
     # @param [Array<Integer>|NilClass]
     # @return [Array<MediaDownloader::MediaWrapper>]
     def gets_target_medias(target_numbers)
@@ -107,6 +111,8 @@ module MediaDownloader
       end
     end
 
+    # 番号をバリデーションする
+    #
     # @param [Array<Integer>]
     # @return [Boolean]
     def valid_target_numbers(target_numbers)
@@ -114,6 +120,8 @@ module MediaDownloader
       validator.validate
     end
 
+    # 対象のメディアを MediaWrapper へ変更する
+    #
     # @param [Array<Integer>]
     # @return [Array<MediaDownloader::MediaWrapper>]
     def transform_to_medias(target_numbers)
@@ -122,6 +130,8 @@ module MediaDownloader
       target_numbers.sort.map { |number| create_media_wrapper(number - 1) }
     end
 
+    # 全てのメディアを MediaWrapper へ変更する
+    #
     # @return [Array<MediaDownloader::MediaWrapper>]
     def transform_to_medias_all
       @tweet.media.map.with_index { |_media, index| create_media_wrapper(index) }
@@ -136,6 +146,8 @@ module MediaDownloader
       MediaWrapper.new(@tweet, medias[index], index)
     end
 
+    # 手動でダウンロード対象のメディアを選択する
+    #
     # @return [Array<MediaDownloader::MediaWrapper>]
     def select_target_medias
       @target_medias_selector = TargetMediasSelector.new(tweet)

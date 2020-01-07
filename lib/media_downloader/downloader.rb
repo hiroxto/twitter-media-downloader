@@ -23,20 +23,10 @@ module MediaDownloader
     # @return [String]
     attr_reader :base_dir
 
-    # フォルダの選択に使うクラス
-    #
-    # @return [MediaDownloader::FolderSelector]
-    attr_reader :folder_selector
-
     # ダウンロード先のフォルダ
     #
     # @return [String]
     attr_reader :download_to
-
-    # ダウンロードするメディアの選択に使うクラス
-    #
-    # @return [MediaDownloader::TargetMediasSelector]
-    attr_reader :target_medias_selector
 
     # ダウンロードするメディア
     #

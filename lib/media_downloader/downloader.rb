@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
+require File.expand_path('utils.rb', __dir__)
+
 module MediaDownloader
   class Downloader
+
+    include Utils
 
     # Twitterのクライアント
     #
@@ -115,25 +119,9 @@ module MediaDownloader
     # @param [Array<Integer>]
     # @return [Array<MediaDownloader::MediaWrapper>]
     def transform_to_medias(target_numbers)
-      return transform_to_medias_all if target_numbers.include?(0)
+      return all_media_transform_to_media_wrapper(@tweet) if target_numbers.include?(0)
 
-      target_numbers.sort.map { |number| create_media_wrapper(number - 1) }
-    end
-
-    # 全てのメディアを MediaWrapper へ変更する
-    #
-    # @return [Array<MediaDownloader::MediaWrapper>]
-    def transform_to_medias_all
-      @tweet.media.map.with_index { |_media, index| create_media_wrapper(index) }
-    end
-
-    # MediaWrapper のインスタンスを作成する
-    #
-    # @param [Integer] index
-    # @return [MediaDownloader::MediaWrapper]
-    def create_media_wrapper(index)
-      medias = @tweet.media
-      MediaWrapper.new(@tweet, medias[index], index)
+      target_numbers.sort.map { |number| create_media_wrapper(@tweet, number - 1) }
     end
 
     # 手動でダウンロード対象のメディアを選択する

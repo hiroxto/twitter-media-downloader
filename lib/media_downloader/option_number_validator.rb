@@ -25,7 +25,7 @@ module MediaDownloader
     end
 
     def over_medias_size?
-      raise MediaDownloader::Error::OptionNumberValidatorError, '番号の最大値がメディアの数より多いです' if @numbers.max >= @medias.size
+      raise MediaDownloader::Error::OptionNumberValidatorError, '番号の最大値がメディアの数より多いです' if @numbers.max > @medias.size
     end
   end
 end

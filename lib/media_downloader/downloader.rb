@@ -58,7 +58,7 @@ module MediaDownloader
       @cli.say("ツイート #{build_tweet_url(tweet)} をダウンロードします")
       @folder_selector = FolderSelector.new(tweet, @base_dir)
       @download_to = @folder_selector.select
-      @target_medias = target_medias(target_numbers)
+      @target_medias = gets_target_medias(target_numbers)
     end
 
     # ファイルを保存する
@@ -94,7 +94,7 @@ module MediaDownloader
 
     # @param [Array<Integer>|NilClass]
     # @return [Array<MediaDownloader::MediaWrapper>]
-    def target_medias(target_numbers)
+    def gets_target_medias(target_numbers)
       return select_target_medias if target_numbers.nil?
 
       begin

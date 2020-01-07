@@ -14,13 +14,10 @@ Twitterの画像,動画などをダウンロードするツール
 
 使用できる環境変数
 
-|環境変数|説明|
-|:---:|:---:|
-|`SAVE_FOLDER`|ダウンロード先のフォルダ名|
-|`TARGET_ALL`|標準で全数ダウンロード。セットされた上で番号オプションがあると番号オプションが優先される|
-
-`SAVE_FOLDER=test ruby downloader.rb id`
-`TARGET_ALL=true SAVE_FOLDER="test" ruby downloader.rb id`
+|環境変数|説明|例|
+|:---:|:---:|:---:|
+|`SAVE_FOLDER`|ダウンロード先のフォルダ名|`SAVE_FOLDER=test ruby downloader.rb id`|
+|`TARGET_ALL`|標準で全数ダウンロード。セットされた上で番号オプションがあると番号オプションが優先される|`TARGET_ALL=true ruby downloader.rb id`|
 
 ## License
 

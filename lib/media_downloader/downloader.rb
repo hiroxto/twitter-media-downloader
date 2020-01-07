@@ -58,8 +58,7 @@ module MediaDownloader
       @cli.say("ツイート #{build_tweet_url(tweet)} をダウンロードします")
       @folder_selector = FolderSelector.new(tweet, @base_dir)
       @download_to = @folder_selector.select
-      @target_medias_selector = TargetMediasSelector.new(tweet)
-      @target_medias = @target_medias_selector.select
+      @target_medias = target_medias(target_numbers)
     end
 
     # ファイルを保存する
@@ -91,6 +90,57 @@ module MediaDownloader
     # @return [String]
     def build_tweet_url(tweet)
       "https://twitter.com/#{tweet.user.screen_name}/status/#{tweet.id}"
+    end
+
+    # @param [Array<Integer>]
+    # @return [Array<MediaDownloader::MediaWrapper>]
+    def target_medias(target_numbers)
+      return select_target_medias if target_numbers.empty?
+
+      if valid_target_numbers?(target_numbers)
+        transform_to_medias(target_numbers)
+      else
+        @cli.say('番号オプションは使用出来ないため, 手動での選択')
+        select_target_medias
+      end
+    end
+
+    # @param [Array<Integer>]
+    # @return [Boolean]
+    def valid_target_numbers?(target_numbers)
+      return false if target_numbers.empty?
+      return true if target_numbers.include?(0)
+
+      medias_length = @tweet.media.length
+      target_numbers.max <= medias_length
+    end
+
+    # @param [Array<Integer>]
+    # @return [Array<MediaDownloader::MediaWrapper>]
+    def transform_to_medias(target_numbers)
+      return transform_to_medias_all if target_numbers.include?(0)
+
+      target_numbers.sort.map { |number| create_media_wrapper(number - 1) }
+    end
+
+    # @return [Array<MediaDownloader::MediaWrapper>]
+    def transform_to_medias_all
+      @tweet.media.map.with_index { |_media, index| create_media_wrapper(index) }
+    end
+
+    # MediaWrapper のインスタンスを作成する
+    #
+    # @param [Integer] index
+    # @return [MediaDownloader::MediaWrapper]
+    def create_media_wrapper(index)
+      medias = @tweet.media
+      MediaWrapper.new(@tweet, medias[index], index)
+    end
+
+    # @return [Array<MediaDownloader::MediaWrapper>]
+    def select_target_medias
+      @target_medias_selector = TargetMediasSelector.new(tweet)
+      @target_medias = @target_medias_selector.select
     end
 
     # ダウンロード先のファイルをフルパスで取得

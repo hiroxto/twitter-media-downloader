@@ -33,11 +33,6 @@ module MediaDownloader
     # @return [String]
     attr_reader :download_to
 
-    # ダウンロードするメディアの選択に使うクラス
-    #
-    # @return [MediaDownloader::TargetMediasSelector]
-    attr_reader :target_medias_selector
-
     # ダウンロードするメディア
     #
     # @return [Array<MediaDownloader::MediaWrapper>]

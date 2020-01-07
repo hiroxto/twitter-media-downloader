@@ -92,10 +92,10 @@ module MediaDownloader
       "https://twitter.com/#{tweet.user.screen_name}/status/#{tweet.id}"
     end
 
-    # @param [Array<Integer>]
+    # @param [Array<Integer>|NilClass]
     # @return [Array<MediaDownloader::MediaWrapper>]
     def target_medias(target_numbers)
-      return select_target_medias if target_numbers.empty?
+      return select_target_medias if target_numbers.nil?
 
       if valid_target_numbers?(target_numbers)
         transform_to_medias(target_numbers)

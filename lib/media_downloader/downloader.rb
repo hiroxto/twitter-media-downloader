@@ -97,9 +97,11 @@ module MediaDownloader
     def target_medias(target_numbers)
       return select_target_medias if target_numbers.nil?
 
-      if valid_target_numbers?(target_numbers)
+      begin
+        valid_target_numbers(target_numbers)
         transform_to_medias(target_numbers)
-      else
+      rescue MediaDownloader::Error::OptionNumberValidatorError => e
+        @cli.say("番号オプションのエラー : #{e.message}")
         @cli.say('番号オプションは使用出来ないため, 手動での選択')
         select_target_medias
       end
@@ -107,12 +109,9 @@ module MediaDownloader
 
     # @param [Array<Integer>]
     # @return [Boolean]
-    def valid_target_numbers?(target_numbers)
-      return false if target_numbers.empty?
-      return true if target_numbers.include?(0)
-
-      medias_length = @tweet.media.length
-      target_numbers.max <= medias_length
+    def valid_target_numbers(target_numbers)
+      validator = OptionNumberValidator.new(@tweet, target_numbers)
+      validator.validate
     end
 
     # @param [Array<Integer>]

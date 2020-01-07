@@ -16,6 +16,7 @@ module MediaDownloader
     def validate
       empty_array?
       over_medias_size?
+      all_exist_number?
     end
 
     private
@@ -26,6 +27,12 @@ module MediaDownloader
 
     def over_medias_size?
       raise MediaDownloader::Error::OptionNumberValidatorError, '番号の最大値がメディアの数より多いです' if @numbers.max > @medias.size
+    end
+
+    def all_exist_number?
+      @numbers.each do |number|
+        raise MediaDownloader::Error::OptionNumberValidatorError, "#{number}番目のメディアは存在しません" if @medias[number - 1].nil?
+      end
     end
   end
 end

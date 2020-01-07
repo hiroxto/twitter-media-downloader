@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
+require File.expand_path('utils.rb', __dir__)
+
 module MediaDownloader
   class TargetMediasSelector
+
+    include Utils
 
     # ダウンロード対象のツイート
     #
@@ -41,7 +45,7 @@ module MediaDownloader
     # @return [Array<MediaDownloader::MediaWrapper>]
     def medias_count_is_one
       @cli.say("ツイート #{@tweet.id} のメディア数が1のため, 1のみ選択")
-      transform_all_medias
+      all_media_transform_to_media_wrapper(@tweet)
     end
 
     # 環境変数 TARGET_ALL がセットされている時, 全選択
@@ -49,7 +53,7 @@ module MediaDownloader
     # @return [Array<MediaDownloader::MediaWrapper>]
     def set_target_all_env
       @cli.say('環境変数 TARGET_ALL がセットされているため, 全て選択')
-      transform_all_medias
+      all_media_transform_to_media_wrapper(@tweet)
     end
 
     # @return [Array<MediaDownloader::MediaWrapper>]
@@ -63,29 +67,14 @@ module MediaDownloader
 
         break if number == -1
 
-        return transform_all_medias if number.zero?
+        return all_media_transform_to_media_wrapper(@tweet) if number.zero?
 
         index = (number - 1).to_i
-        wrapper = create_media_wrapper(index)
+        wrapper = create_media_wrapper(@tweet, index)
         targets.push(wrapper)
       end
 
       targets
-    end
-
-    # 全てのメディアを MediaWrapper に変形
-    #
-    # @return [Array<MediaDownloader::MediaWrapper>]
-    def transform_all_medias
-      @medias.map.with_index { |_media, index| create_media_wrapper(index) }
-    end
-
-    # MediaWrapper のインスタンスを作成する
-    #
-    # @param [Integer] index
-    # @return [MediaDownloader::MediaWrapper]
-    def create_media_wrapper(index)
-      MediaWrapper.new(@tweet, @medias[index], index)
     end
   end
 end

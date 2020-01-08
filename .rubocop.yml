@@ -59,9 +59,6 @@ Style/MethodMissingSuper:
 Style/MissingRespondToMissing:
   Enabled: false
 
-Style/PercentLiteralDelimiters:
-  Enabled: false
-
 Style/RescueStandardError:
   EnforcedStyle: explicit
 

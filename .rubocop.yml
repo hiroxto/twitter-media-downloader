@@ -12,16 +12,10 @@ Layout/EmptyLinesAroundModuleBody:
 Layout/LineLength:
   Enabled: false
 
-Lint/Debugger:
-  Enabled: false
-
 Metrics/MethodLength:
   Max: 20
 
 Style/AsciiComments:
-  Enabled: false
-
-Style/BlockComments:
   Enabled: false
 
 Style/BlockDelimiters:
@@ -58,15 +52,6 @@ Style/EmptyMethod:
 
 Style/HashSyntax:
   EnforcedStyle: no_mixed_keys
-
-Style/MethodMissingSuper:
-  Enabled: false
-
-Style/MissingRespondToMissing:
-  Enabled: false
-
-Style/PercentLiteralDelimiters:
-  Enabled: false
 
 Style/RescueStandardError:
   EnforcedStyle: explicit

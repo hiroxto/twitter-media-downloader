@@ -12,9 +12,6 @@ Layout/EmptyLinesAroundModuleBody:
 Layout/LineLength:
   Enabled: false
 
-Lint/Debugger:
-  Enabled: false
-
 Metrics/MethodLength:
   Max: 20
 

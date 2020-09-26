@@ -60,8 +60,9 @@ module MediaDownloader
       @target_medias.each do |target_media|
         fullpath = build_save_to_fullpath(target_media)
         uri = pick_uri(target_media)
+        created_at = tweet_id_to_time(@tweet_id)
 
-        file_saver = FileSaver.new(uri, fullpath)
+        file_saver = FileSaver.new(uri, fullpath, created_at)
         file_saver.save
       end
     end
@@ -162,6 +163,14 @@ module MediaDownloader
       queries['name'] = 'orig'
       uri.query_values = queries
       uri
+    end
+
+    # ツイートのIDを時刻に変換する
+    #
+    # @param [String] id
+    # @return [Time]
+    def tweet_id_to_time(id)
+      Time.at(((id.to_i >> 22) + 1_288_834_974_657) / 1000.0)
     end
   end
 end

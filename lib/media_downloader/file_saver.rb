@@ -15,11 +15,18 @@ module MediaDownloader
     # @return [String]
     attr_reader :save_to
 
+    # ファイルの作成日時
+    #
+    # @return [Time]
+    attr_reader :created_at
+
     # @param [Addressable::URI] uri 保存対象のURI
     # @param [String] save_to URIの保存先
-    def initialize(uri, save_to)
+    # @param [Time] created_at ファイルの作成日時
+    def initialize(uri, save_to, created_at)
       @uri = uri
       @save_to = save_to
+      @created_at = created_at
       @cli = HighLine.new
     end
 
@@ -38,8 +45,10 @@ module MediaDownloader
 
       @cli.say("#{@uri} を #{@save_to} へ保存します.")
       length = write_to_file(response)
-      @cli.say("保存が完了しました.\n\n")
+      @cli.say('保存が完了しました.')
 
+      File.utime(File.atime(@save_to), @created_at, @save_to)
+      @cli.say('mtimeの更新を完了しました.')
       length
     end
 

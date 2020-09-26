@@ -163,5 +163,13 @@ module MediaDownloader
       uri.query_values = queries
       uri
     end
+
+    # ツイートのIDを時刻に変換する
+    #
+    # @param [String] id
+    # @return [Time]
+    def tweet_id_to_time(id)
+      Time.at(((id.to_i >> 22) + 1_288_834_974_657) / 1000.0)
+    end
   end
 end

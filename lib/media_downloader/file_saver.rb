@@ -45,8 +45,10 @@ module MediaDownloader
 
       @cli.say("#{@uri} を #{@save_to} へ保存します.")
       length = write_to_file(response)
-      @cli.say("保存が完了しました.\n\n")
+      @cli.say('保存が完了しました.')
 
+      File.utime(File.atime(@save_to), @created_at, @save_to)
+      @cli.say('mtimeの更新を完了しました.')
       length
     end
 

@@ -60,8 +60,9 @@ module MediaDownloader
       @target_medias.each do |target_media|
         fullpath = build_save_to_fullpath(target_media)
         uri = pick_uri(target_media)
+        created_at = tweet_id_to_time(@tweet_id)
 
-        file_saver = FileSaver.new(uri, fullpath)
+        file_saver = FileSaver.new(uri, fullpath, created_at)
         file_saver.save
       end
     end

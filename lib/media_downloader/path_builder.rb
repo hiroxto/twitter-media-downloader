@@ -27,7 +27,7 @@ module MediaDownloader
     def build
       year, month = created_at.strftime('%Y:%m').split(':')
 
-      File.join(@download_to, media_type, year, month, date, tweet_id, filename)
+      File.join(@download_to, media_type, year, month, tweet_id, filename)
     end
 
     private

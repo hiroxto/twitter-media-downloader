@@ -1,4 +1,5 @@
 config.yml
+docker-compose-custom.yml
 
 *.gem
 /.bundle/

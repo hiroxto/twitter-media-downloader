@@ -8,4 +8,4 @@ gem 'faraday', '~>1.0'
 gem 'highline', '~>2.0'
 gem 'pry', '~>0.12'
 gem 'rubocop', require: false
-gem 'twitter', '~>7.0'
+gem 'twitter', '~>8.0'
